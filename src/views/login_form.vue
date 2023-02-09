@@ -6,24 +6,27 @@
         <img src="../assets/login_left0.png" alt="登录背景" />
       </div>
       <div class="login-right">
-        <img src="../assets/logo.svg" alt="">
-        <h1>VUE PRACTICE</h1>
+        <div class="login-top" >
+          <img src="../assets/logo.svg" alt="">
+          <h2 >VUE PRACTICE</h2>
+        </div>
         <el-form :inline="false" :rules="loginRules" ref="ruleFormRef" :model="loginData">
           <el-form-item prop="userName">
             <el-input class="userName" v-model="loginData.userName" placeholder="请输入用户名" size="default" />
           </el-form-item>
           <el-form-item prop="password">
             <el-input class="password" type="password" v-model="loginData.password" size="default" placeholder="请输入密码"
-              show-password autocomplete="new-password" />
+                      show-password autocomplete="new-password" />
           </el-form-item>
 
           <div class="login-button">
-            <el-button round size="large" style="width: 100%;">
+            <el-button round size="large">
               清空
             </el-Button>
             <el-button round type="primary" size="large" @click="submitForm(ruleFormRef)">
               登录
             </el-Button>
+
           </div>
 
         </el-form>
@@ -35,8 +38,9 @@
 <script lang="ts" setup>
 import type { FormRules, FormInstance } from "element-plus";
 import { ref, reactive } from "vue";
+import axios from "axios";
 
-const ruleFormRef = ref<FormInstance>()
+const ruleFormRef = ref<FormInstance>();
 
 const open = ref(true);
 const loginData = reactive({
@@ -51,18 +55,34 @@ const loginRules = reactive<FormRules>({
 
 
 const submitForm = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  await formEl.validate((valid, fields) => {
+  if (!formEl) return;
+  let b = await formEl.validate((valid, fields) => {
     if (valid) {
-      console.log('submit!')
+      console.log("submit!");
     } else {
-      console.log('error submit!', fields)
+      console.log("error submit!", fields);
     }
-  })
-}
+  });
+  console.log(b);
+
+};
 </script>
 
 <style scoped>
+
+.login-top {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+h2{
+  background-color: cadetblue;
+}
+
+
 .userName {
   width: 100%;
 }
@@ -74,9 +94,12 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
 }
 
-.el-button {
-  width: 185px;
+.login-button .el-button{
+  width: 200px;
 }
+
+
+
 
 .switcher {
   top: 5%;
