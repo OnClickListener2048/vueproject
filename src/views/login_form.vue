@@ -38,16 +38,16 @@ import { ref, reactive } from "vue";
 
 const ruleFormRef = ref<FormInstance>()
 
-var open = ref(true);
-var loginData = reactive({
+const open = ref(true);
+const loginData = reactive({
   userName: "",
-  password: "",
-})
+  password: ""
+});
 
-var loginRules = reactive<FormRules>({
+const loginRules = reactive<FormRules>({
   userName: [{ trigger: "blur", required: true, message: "必须输入用户名！" }],
   password: [{ trigger: "blur", required: true, message: "必须输入密码！" }]
-})
+});
 
 
 const submitForm = async (formEl: FormInstance | undefined) => {
