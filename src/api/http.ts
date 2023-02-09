@@ -13,12 +13,12 @@ class RequestHttp {
 
   constructor(config: AxiosRequestConfig) {
     this.axiosInstance = axios.create(config);
-    this.axiosInstance.interceptors.request.use((value: InternalAxiosRequestConfig) => {
+    this.axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
       let globalConfig = GlobalConfig();
-
-      return value;
+      config.headers.set("x-access-token", globalConfig.token);
+      return config;
     }, (error) => {
-      console.log(error);
+      return Promise.reject(error);
     });
 
   }

@@ -38,8 +38,7 @@
 <script lang="ts" setup>
 import type { FormRules, FormInstance } from "element-plus";
 import { ref, reactive } from "vue";
-import axios from "axios";
-
+import http from "@/api/http"
 const ruleFormRef = ref<FormInstance>();
 
 const open = ref(true);
@@ -64,6 +63,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     }
   });
   console.log(b);
+
+  http.axiosInstance
 
 };
 </script>
