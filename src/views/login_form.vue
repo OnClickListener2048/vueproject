@@ -6,9 +6,9 @@
         <img src="../assets/login_left0.png" alt="登录背景" />
       </div>
       <div class="login-right">
-        <div class="login-top" >
+        <div class="login-top">
           <img src="../assets/logo.svg" alt="">
-          <h2 >VUE PRACTICE</h2>
+          <h2>VUE PRACTICE</h2>
         </div>
         <el-form :inline="false" :rules="loginRules" ref="ruleFormRef" :model="loginData">
           <el-form-item prop="userName">
@@ -38,7 +38,8 @@
 <script lang="ts" setup>
 import type { FormRules, FormInstance } from "element-plus";
 import { ref, reactive } from "vue";
-import http from "@/api/http"
+import http from "@/api/http";
+
 const ruleFormRef = ref<FormInstance>();
 
 const open = ref(true);
@@ -55,16 +56,17 @@ const loginRules = reactive<FormRules>({
 
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
-  let b = await formEl.validate((valid, fields) => {
+  let b = await formEl.validate(async (valid, fields) => {
     if (valid) {
       console.log("submit!");
+      let resultData = await http.post("/login", { ...loginData });
+      console.log(resultData);
     } else {
       console.log("error submit!", fields);
     }
   });
   console.log(b);
 
-  http.axiosInstance
 
 };
 </script>
@@ -78,8 +80,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 }
 
 
-
-h2{
+h2 {
   background-color: cadetblue;
 }
 
@@ -95,11 +96,9 @@ h2{
 
 }
 
-.login-button .el-button{
+.login-button .el-button {
   width: 200px;
 }
-
-
 
 
 .switcher {
