@@ -45,9 +45,9 @@ class RequestHttp {
         return Promise.reject(response.data)
       }
 
-      return response;
+      return response.data;
     }, (error) => {
-      loading.close();
+      loading?.close();
       return Promise.reject(error);
     });
 
@@ -59,7 +59,7 @@ class RequestHttp {
   }
 
   post<T>(url: string, params?: object): Promise<ResultData<T>> {
-    return this.axiosInstance.post("/geeker"+url, { params });
+    return this.axiosInstance.post("/geeker"+url, { ...params });
   }
 
 }

@@ -12,7 +12,7 @@
         </div>
         <el-form :inline="false" :rules="loginRules" ref="ruleFormRef" :model="loginData">
           <el-form-item prop="userName">
-            <el-input class="userName" v-model="loginData.userName" placeholder="请输入用户名" size="default" />
+            <el-input class="userName" v-model="loginData.username" placeholder="请输入用户名" size="default" />
           </el-form-item>
           <el-form-item prop="password">
             <el-input class="password" type="password" v-model="loginData.password" size="default" placeholder="请输入密码"
@@ -20,7 +20,7 @@
           </el-form-item>
 
           <div class="login-button">
-            <el-button round size="large">
+            <el-button round size="large" @click="clearData(ruleFormRef)">
               清空
             </el-Button>
             <el-button round type="primary" size="large" @click="submitForm(ruleFormRef)">
@@ -39,28 +39,43 @@
 import type { FormRules, FormInstance } from "element-plus";
 import { ref, reactive } from "vue";
 import http from "@/api/http";
+import { Md5 } from "ts-md5";
+import { Login } from "@/interface";
+
 
 const ruleFormRef = ref<FormInstance>();
 
 const open = ref(true);
 const loginData = reactive({
-  userName: "",
+  username: "",
   password: ""
 });
 
 const loginRules = reactive<FormRules>({
-  userName: [{ trigger: "blur", required: true, message: "必须输入用户名！" }],
+  username: [{ trigger: "blur", required: true, message: "必须输入用户名！" }],
   password: [{ trigger: "blur", required: true, message: "必须输入密码！" }]
 });
 
+
+const clearData = (formEl: FormInstance) => {
+  console.log(formEl);
+  if (formEl) {
+    formEl.resetFields();
+  }
+
+};
 
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   let b = await formEl.validate(async (valid, fields) => {
     if (valid) {
       console.log("submit!");
-      let resultData = await http.post("/login", { ...loginData });
-      console.log(resultData);
+      const { data } = await http.post<{ access_token: string }>("/login", {
+        ...loginData,
+        password: Md5.hashStr(loginData.password)
+      });
+
+      console.log(data?.access_token);
     } else {
       console.log("error submit!", fields);
     }
