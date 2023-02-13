@@ -40,7 +40,9 @@ import type { FormRules, FormInstance } from "element-plus";
 import { ref, reactive } from "vue";
 import http from "@/api/http";
 import { Md5 } from "ts-md5";
-import { Login } from "@/interface";
+import router_path from "@/router/router_path";
+import router from "@/router";
+import { GlobalConfig } from "@/stores/counter";
 
 
 const ruleFormRef = ref<FormInstance>();
@@ -70,18 +72,23 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   let b = await formEl.validate(async (valid, fields) => {
     if (valid) {
       console.log("submit!");
-      const { data } = await http.post<{ access_token: string }>("/login", {
+      const { data } = await http.post<{ access_token: string }>(router_path.login, {
         ...loginData,
         password: Md5.hashStr(loginData.password)
       });
 
-      console.log(data?.access_token);
+      let globalConfig = GlobalConfig();
+      if (data) {
+        globalConfig.setToken(data.access_token);
+      }
+
+      let newVar = await router.push("/");
+      console.log(newVar);
     } else {
       console.log("error submit!", fields);
     }
   });
   console.log(b);
-
 
 };
 </script>
