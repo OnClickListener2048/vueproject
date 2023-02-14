@@ -3,18 +3,23 @@
     <el-container class="el-container">
       <el-header class="el-header">
         <div class="top">
-          <img class="logo" src="../assets/logo.svg" alt="logo">
+          <img class="logo" src="../assets/logo.svg" alt="logo" @click="handleCollapse">
           <span>vue project</span>
         </div>
       </el-header>
 
     </el-container>
     <el-container>
-      <el-aside class="el-aside">
-        <el-menu :collapse="isCollapse" @open="handleOpen" @close="handleClose">
-
-        </el-menu>
-      </el-aside>
+      <div v-bind:style="{width:isCollapse?'64px':'200px'}">
+        <el-aside class="el-menu-vertical-demo">
+          <el-scrollbar>
+            <el-menu :collapse="isCollapse" @open="handleOpen" @close="handleClose" default-active="0"
+                     unique-opened="unique-opened">
+              <HomeSubItem v-bind:items="computedRef.list"></HomeSubItem>
+            </el-menu>
+          </el-scrollbar>
+        </el-aside>
+      </div>
       <el-container>
         <el-main>
           main
@@ -30,23 +35,26 @@
 </template>
 
 <script setup lang="ts">
-import { auth_list, auth_list2 } from "@/stores/auth_list";
+import { auth_list } from "@/stores/auth_list";
+import HomeSubItem from "@/views/HomeSubItem.vue";
+import { ref } from "vue";
 
 let storeDefinition = auth_list();
-// storeDefinition.getMenuList();
+storeDefinition.getMenuList();
+let computedRef = storeDefinition.computedRef;
 
-
-let storeDefinition1 = auth_list2();
-storeDefinition1().getMenuList()
 let handleOpen = function() {
 
 };
 let handleClose;
-let isCollapse;
+let isCollapse = ref(false);
+
+let handleCollapse = function() {
+  isCollapse.value = !isCollapse.value;
+};
 </script>
 
 <style lang="scss">
-
 
 .el-footer {
   background-color: darkblue;
@@ -77,10 +85,11 @@ let isCollapse;
   }
 }
 
-.el-aside {
+
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  height: calc(100% - 55px);
   width: 200px;
-  height: 100%;
-  background-color: cadetblue;
+  min-height: 400px;
 }
 </style>
 

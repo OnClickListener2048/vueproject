@@ -1,35 +1,21 @@
 import { defineStore } from "pinia";
 import http from "@/api/http";
-import type { Menu } from "@/interface";
+import { computed, reactive } from "vue";
+import type { AuthItem } from "@/interface";
 
 export const auth_list = defineStore(
   "auth_list",
   () => {
 
-    let authList = [] as Menu.AuthItem[] | undefined;
+    let authList = reactive({"list":[] as AuthItem[]});
+    let computedRef = computed(() => authList);
 
     async function getMenuList() {
-      let { data } = await http.get<Menu.AuthItem[] | undefined>("/menu/list");
+      let { data } = await http.get<AuthItem[]>("/menu/list");
       console.log(data);
-      authList = data;
-
-
+      authList.list = data ?? [];
     }
 
-    return { authList };
+    return { computedRef, getMenuList };
   }
 );
-
-export const auth_list2 = () => {
-  return defineStore({
-    id: "auth_list",
-    state: () => ({}),
-    getters: {},
-    actions: {
-      async getMenuList() {
-        let { data } = await http.get("/menu/list");
-        console.log(data);
-      }
-    }
-  });
-};

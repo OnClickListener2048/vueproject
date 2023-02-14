@@ -14,24 +14,21 @@ export namespace Login {
   }
 }
 
-export namespace Menu {
-  export interface AuthItem {
-    path: string | undefined,
-    name: string | undefined,
-    component: string | undefined,
-    meta: Meta | undefined,
-    children: AuthItem[] | undefined
+export interface AuthItem {
+  path: string | undefined,
+  name: string | undefined,
+  component: string | undefined,
+  meta: Meta | undefined,
+  children: AuthItem[] | undefined
 
-  }
-
-  export interface Meta {
-    icon: string | undefined,
-    title: string | undefined,
-    isLink: string | undefined,
-    isHide: boolean | undefined,
-    isFull: boolean | undefined,
-    isAffix: boolean | undefined,
-    isKeepAlive: boolean | undefined,
-  }
 }
 
+export interface Meta {
+  icon: string | undefined,
+  title: string | undefined,
+  isLink: string | undefined,
+  isHide: boolean | undefined,
+  isFull: boolean | undefined,
+  isAffix: boolean | undefined,
+  isKeepAlive: boolean | undefined,
+}
