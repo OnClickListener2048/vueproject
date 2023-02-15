@@ -5,6 +5,7 @@ import { ElLoading, ElMessage } from "element-plus";
 import { HttpResponseStatus } from "@/api/http_enum";
 import router from "@/router";
 import type { ResultData } from "@/interface";
+import router_path from "@/router/router_path";
 
 const config: AxiosRequestConfig = {
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -34,7 +35,7 @@ class RequestHttp {
       if (response.data.code == HttpResponseStatus.OVERDUE) {
         ElMessage.error(response.data.msg);
         globalConfig.setToken("");
-        let newVar = await router.replace("/login");
+        let newVar = await router.replace(router_path.login);
         if (newVar) {
           console.log(newVar);
         }
@@ -54,7 +55,7 @@ class RequestHttp {
   }
 
 
-  get<T>(url: string, params?: object): Promise<ResultData<T>> {
+  get<T>(url: string, params?: object): Promise<Partial<ResultData<T>>> {
     return this.axiosInstance.get("/geeker"+url, { params });
   }
 

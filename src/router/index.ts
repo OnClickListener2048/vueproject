@@ -1,23 +1,28 @@
 import {
   createRouter,
   createWebHistory,
-  type NavigationGuardWithThis,
+  type NavigationGuardWithThis
 } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import { GlobalConfig } from "@/stores/counter";
+import router_path from "@/router/router_path";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      name: "home",
-      component: HomeView,
+      redirect: router_path.home
     },
     {
-      path: "/login",
+      path: router_path.home,
+      name: "home",
+      component: HomeView
+    },
+    {
+      path: router_path.login,
       name: "login",
-      component: () => import("../views/login_form.vue"),
+      component: () => import("../views/login_form.vue")
     },
     {
       path: "/about",
@@ -25,16 +30,16 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
-    },
-  ],
+      component: () => import("../views/AboutView.vue")
+    }
+  ]
 });
 
 router.beforeEach((to, from) => {
   const globalState = GlobalConfig();
   if (!globalState.token && to.name != "login") {
-    console.log("/login")
-    return "/login";
+    console.log(router_path.login);
+    return router_path.login;
   }
   // ...
   // 返回 false 以取消导航

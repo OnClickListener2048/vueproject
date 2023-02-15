@@ -1,10 +1,10 @@
 export interface Result {
-  code?: string,
-  msg?: string,
+  code: string,
+  msg: string,
 }
 
 export interface ResultData<Data = any> extends Result {
-  data?: Data;
+  data: Data;
 }
 
 
@@ -14,6 +14,7 @@ export namespace Login {
   }
 }
 
+
 export interface AuthItem {
   path: string | undefined,
   name: string | undefined,
@@ -22,6 +23,8 @@ export interface AuthItem {
   children: AuthItem[] | undefined
 
 }
+
+declare type s = ReturnType<() => "">
 
 export interface Meta {
   icon: string | undefined,

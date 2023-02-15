@@ -1,6 +1,6 @@
 <template>
   <div class="common-layout">
-    <el-container class="el-container">
+    <el-container class="el-container" style="height: 55px">
       <el-header class="el-header">
         <div class="top">
           <img class="logo" src="../assets/logo.svg" alt="logo" @click="handleCollapse">
@@ -10,19 +10,22 @@
 
     </el-container>
     <el-container>
-      <div v-bind:style="{width:isCollapse?'64px':'200px'}">
+      <div v-bind:style="{width:isCollapse?'64px':'200px'}" style="background-color: aqua"
+           class="el-menu-vertical-demo">
         <el-aside class="el-menu-vertical-demo">
-          <el-scrollbar>
+          <el-scrollbar style="background-color: saddlebrown">
             <el-menu :collapse="isCollapse" @open="handleOpen" @close="handleClose" default-active="0"
                      unique-opened="unique-opened">
-              <HomeSubItem v-bind:items="computedRef.list"></HomeSubItem>
+              <HomeSubItem v-bind:items="list"></HomeSubItem>
             </el-menu>
           </el-scrollbar>
         </el-aside>
       </div>
       <el-container>
         <el-main>
-          main
+          <template>
+            <router-view></router-view>
+          </template>
         </el-main>
         <el-footer>
           footer
@@ -37,11 +40,11 @@
 <script setup lang="ts">
 import { auth_list } from "@/stores/auth_list";
 import HomeSubItem from "@/views/HomeSubItem.vue";
-import { ref } from "vue";
+import { ref, toRefs, unref } from "vue";
 
 let storeDefinition = auth_list();
 storeDefinition.getMenuList();
-let computedRef = storeDefinition.computedRef;
+let { list } = toRefs(storeDefinition.computedRef);
 
 let handleOpen = function() {
 
@@ -52,6 +55,8 @@ let isCollapse = ref(false);
 let handleCollapse = function() {
   isCollapse.value = !isCollapse.value;
 };
+
+
 </script>
 
 <style lang="scss">
