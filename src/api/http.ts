@@ -9,7 +9,7 @@ import router_path from "@/router/router_path";
 
 const config: AxiosRequestConfig = {
   baseURL: import.meta.env.VITE_BASE_URL,
-  timeout: 1000,
+  timeout: 10000,
   withCredentials: true
 };
 
@@ -41,13 +41,13 @@ class RequestHttp {
         }
       }
 
-      if (response.data.code!=HttpResponseStatus.SUCCESS) {
+      if (response.data.code != HttpResponseStatus.SUCCESS) {
         ElMessage.error(response.data.msg);
-        return Promise.reject(response.data)
+        return Promise.reject(response.data);
       }
 
       return response.data;
-    }, (error) => {
+    }, (error) =>{
       loading?.close();
       return Promise.reject(error);
     });
@@ -56,11 +56,11 @@ class RequestHttp {
 
 
   get<T>(url: string, params?: object): Promise<Partial<ResultData<T>>> {
-    return this.axiosInstance.get("/geeker"+url, { params });
+    return this.axiosInstance.get("/geeker" + url, { params });
   }
 
   post<T>(url: string, params?: object): Promise<ResultData<T>> {
-    return this.axiosInstance.post("/geeker"+url, { ...params });
+    return this.axiosInstance.post("/geeker" + url, { ...params });
   }
 
 }

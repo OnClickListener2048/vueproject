@@ -18,6 +18,14 @@ export const auth_list = defineStore(
       let router = useRouter();
       let array: AuthItem[] = [];
 
+      const getFlatItems = (list: AuthItem[]): AuthItem[] => {
+        return list.reduce<AuthItem[]>((previousValue, currentValue) => {
+          return  previousValue.concat([currentValue, ...getFlatItems(currentValue.children ?? [])]);
+        }, []);
+      };
+
+      console.log(getFlatItems(data ?? []));
+
 
     }
 
