@@ -46,4 +46,9 @@ router.beforeEach((to, from) => {
   return true;
 });
 
+router.onError((error, to, from) => {
+  console.warn("路由错误", error, to, from);
+
+});
+
 export default router;

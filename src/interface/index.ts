@@ -18,13 +18,11 @@ export namespace Login {
 export interface AuthItem {
   path: string | undefined,
   name: string | undefined,
-  component: string | undefined,
+  component: string | undefined ,
   meta: Meta | undefined,
-  children: AuthItem[] | undefined
-
+  children: AuthItem[] | undefined,
+  redirect: string | undefined,
 }
-
-declare type s = ReturnType<() => "">
 
 export interface Meta {
   icon: string | undefined,

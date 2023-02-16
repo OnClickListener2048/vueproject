@@ -22,11 +22,11 @@
         </el-aside>
       </div>
       <el-container>
-        <el-main>
-          <template>
-            <router-view></router-view>
-          </template>
-        </el-main>
+        <router-view v-slot="{ Component, route }">
+          <transition appear name="fade-transform" mode="out-in">
+              <component :is="Component" :key="route.path" />
+          </transition>
+        </router-view>
         <el-footer>
           footer
         </el-footer>
@@ -40,10 +40,13 @@
 <script setup lang="ts">
 import { auth_list } from "@/stores/auth_list";
 import HomeSubItem from "@/views/HomeSubItem.vue";
-import { ref, toRefs, unref } from "vue";
+import { computed, onMounted, ref, toRefs } from "vue";
+import type { AuthItem } from "@/interface";
+
 
 let storeDefinition = auth_list();
 storeDefinition.getMenuList();
+
 let { list } = toRefs(storeDefinition.computedRef);
 
 let handleOpen = function() {

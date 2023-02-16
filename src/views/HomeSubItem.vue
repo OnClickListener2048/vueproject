@@ -40,10 +40,8 @@ const handleItemClick = (item: AuthItem) => {
   if (item.meta?.isLink) {
 
   }
-  router.push("/about" ?? router_path.home);
+  router.push(item.path ?? router_path.home);
 };
-
-console.log(props.items.length);
 
 </script>
 
