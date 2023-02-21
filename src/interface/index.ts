@@ -18,10 +18,10 @@ export namespace Login {
 export interface AuthItem {
   path: string | undefined,
   name: string | undefined,
-  component: string | undefined ,
+  component?: string | (()=>Promise<any>) ,
   meta: Meta | undefined,
   children: AuthItem[] | undefined,
-  redirect: string | undefined,
+  redirect: string ,
 }
 
 export interface Meta {

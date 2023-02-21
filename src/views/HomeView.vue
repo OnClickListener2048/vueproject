@@ -13,8 +13,9 @@
       <div v-bind:style="{width:isCollapse?'64px':'200px'}" style="background-color: aqua"
            class="el-menu-vertical-demo">
         <el-aside class="el-menu-vertical-demo">
-          <el-scrollbar style="background-color: saddlebrown">
-            <el-menu :collapse="isCollapse" @open="handleOpen" @close="handleClose" default-active="0"
+          <el-scrollbar>
+            <el-menu :collapse="isCollapse"
+                     :default-active="activeMenu"
                      unique-opened="unique-opened">
               <HomeSubItem v-bind:items="list"></HomeSubItem>
             </el-menu>
@@ -24,7 +25,7 @@
       <el-container>
         <router-view v-slot="{ Component, route }">
           <transition appear name="fade-transform" mode="out-in">
-              <component :is="Component" :key="route.path" />
+            <component :is="Component" :key="route.path" />
           </transition>
         </router-view>
         <el-footer>
@@ -42,17 +43,24 @@ import { auth_list } from "@/stores/auth_list";
 import HomeSubItem from "@/views/HomeSubItem.vue";
 import { computed, onMounted, ref, toRefs } from "vue";
 import type { AuthItem } from "@/interface";
+import { useRoute } from "vue-router";
+let route = useRoute();
 
 
+setTimeout(()=>{
+  console.log(route);
+},1000)
+const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu : route.path));
 let storeDefinition = auth_list();
-storeDefinition.getMenuList();
 
-let { list } = toRefs(storeDefinition.computedRef);
+let { list, defaultOpen } = toRefs(storeDefinition.computedRef);
 
-let handleOpen = function() {
-
+let handleOpen = function(path:string) {
+  console.log(`handleOpen---${path}`);
 };
-let handleClose;
+let handleClose=function(path: string) {
+  console.log(`handleClose---${path}`);
+};
 let isCollapse = ref(false);
 
 let handleCollapse = function() {
@@ -65,7 +73,7 @@ let handleCollapse = function() {
 <style lang="scss">
 
 .el-footer {
-  background-color: darkblue;
+  background-color: cadetblue;
 }
 
 .el-main {

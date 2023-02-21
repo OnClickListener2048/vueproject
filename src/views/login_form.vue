@@ -82,7 +82,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         globalConfig.setToken(data.access_token);
       }
 
-      let newVar = await router.push(router_path.home);
+      let newVar = await router.push(router_path.homeIndex);
       console.log(newVar);
     } else {
       console.log("error submit!", fields);

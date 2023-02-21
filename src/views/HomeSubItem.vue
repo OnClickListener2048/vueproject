@@ -37,10 +37,11 @@ let props = withDefaults(
 );
 let router = useRouter();
 const handleItemClick = (item: AuthItem) => {
+  console.log(`handleItemClick---${item}`);
   if (item.meta?.isLink) {
 
   }
-  router.push(item.path ?? router_path.home);
+  router.push(item.path ?? router_path.homeIndex);
 };
 
 </script>

@@ -9,7 +9,7 @@ let glob = import.meta.glob("../views/**/**.vue");
 export const auth_list = defineStore(
   "auth_list",
   () => {
-    let authList = reactive({ "list": [] as AuthItem[] });
+    let authList = reactive({ "list": [] as AuthItem[],"defaultOpen":"0" });
     let computedRef = computed(() => authList);
 
     async function getMenuList() {
@@ -17,22 +17,23 @@ export const auth_list = defineStore(
       console.log(data);
       authList.list = data ?? [];
 
+
+
       let flatItems = getFlatMenuList(authList.list);
       for (const flatItem of flatItems) {
         let route = {
           path: flatItem.path ?? "",
           component: glob[`../views${flatItem.component}.vue`],
         };
-
         if (flatItem.meta?.isFull) {
           let addRoute = router.addRoute(route);
-          console.log(addRoute);
         } else {
           let addRoute1 = router.addRoute("home", route);
-          console.log(addRoute1);
         }
-        console.log(route);
+        authList.defaultOpen = "1"
       }
+
+      console.log( router.getRoutes());
     }
 
 
