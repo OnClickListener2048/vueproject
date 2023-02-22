@@ -1,11 +1,12 @@
 import {
   createRouter,
   createWebHistory,
-  type NavigationGuardWithThis
+  type NavigationGuardWithThis, useRouter
 } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import HomeView from "../views/layout/HomeView.vue";
 import { GlobalConfig } from "@/stores/counter";
 import router_path from "@/router/router_path";
+import { auth_list } from "@/stores/auth_list";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,11 +16,11 @@ const router = createRouter({
       redirect: router_path.home
     },
     {
-      path: router_path.home,
+      path: "/home",
       name: "home",
-      component: () => import("../views/HomeView.vue"),
-      redirect:router_path.homeIndex,
-      children:[]
+      component: () => import("../views/layout/HomeView.vue"),
+      // redirect:router_path.home,
+      children: []
     },
     {
       path: router_path.login,
@@ -37,12 +38,23 @@ const router = createRouter({
   ]
 });
 
-router.beforeEach((to, from) => {
+router.beforeEach(async (to, from) => {
+  console.log(to);
+  console.log(router.getRoutes());
   const globalState = GlobalConfig();
   if (!globalState.token && to.name != "login") {
     console.log(router_path.login);
     return router_path.login;
   }
+
+
+  let authList = auth_list();
+  if (authList.computedRef.list.length == 0) {
+    await authList.getMenuList();
+    await router.push(to)
+    return false;
+  }
+
   // ...
   // 返回 false 以取消导航
   return true;

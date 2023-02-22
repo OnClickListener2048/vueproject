@@ -3,7 +3,7 @@
     <el-container class="el-container" style="height: 55px">
       <el-header class="el-header">
         <div class="top">
-          <img class="logo" src="../assets/logo.svg" alt="logo" @click="handleCollapse">
+          <img class="logo" src="../../assets/logo.svg" alt="logo" @click="handleCollapse">
           <span>vue project</span>
         </div>
       </el-header>
@@ -45,15 +45,13 @@ import { computed, onMounted, ref, toRefs } from "vue";
 import type { AuthItem } from "@/interface";
 import { useRoute } from "vue-router";
 let route = useRoute();
+console.log("layoutClassic");
+console.log(route);
 
-
-setTimeout(()=>{
-  console.log(route);
-},1000)
 const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu : route.path));
 let storeDefinition = auth_list();
 
-let { list, defaultOpen } = toRefs(storeDefinition.computedRef);
+let { list } = toRefs(storeDefinition.computedRef);
 
 let handleOpen = function(path:string) {
   console.log(`handleOpen---${path}`);
