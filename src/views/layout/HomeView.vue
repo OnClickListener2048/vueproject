@@ -12,7 +12,7 @@
     <el-container>
       <div v-bind:style="{width:isCollapse?'64px':'200px'}" class="bottom-height">
         <el-aside class="el-menu-vertical-demo" >
-          <el-scrollbar :height="windowHeight">
+          <el-scrollbar :height="windowHeight" style="background-color: blanchedalmond">
             <el-menu :collapse="isCollapse"
                      :default-active="activeMenu"
                      unique-opened="unique-opened">
@@ -27,8 +27,10 @@
             <component :is="Component" :key="route.path" />
           </transition>
         </router-view>
-        <el-footer>
-          footer
+        <el-footer height="30px">
+          <div>
+            footer
+          </div>
         </el-footer>
       </el-container>
     </el-container>
@@ -59,9 +61,14 @@ let windowHeight = window.innerHeight - 60
 
 </script>
 
+
 <style lang="scss">
 
+
 .el-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: cadetblue;
 }
 
@@ -94,9 +101,14 @@ let windowHeight = window.innerHeight - 60
 }
 
 .el-menu-vertical-demo:not(.el-menu--collapse) {
-  height: calc(100% - 60px);
   width: 200px;
   min-height: 400px;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
 }
 </style>
 
