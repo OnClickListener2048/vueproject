@@ -41,8 +41,7 @@
 <script setup lang="ts">
 import { auth_list } from "@/stores/auth_list";
 import HomeSubItem from "@/views/HomeSubItem.vue";
-import { computed, onMounted, ref, toRefs } from "vue";
-import type { AuthItem } from "@/interface";
+import { computed, ref, toRefs } from "vue";
 import { useRoute } from "vue-router";
 let route = useRoute();
 console.log("layoutClassic");
@@ -50,15 +49,8 @@ console.log(route);
 
 const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu : route.path));
 let storeDefinition = auth_list();
-
 let { list } = toRefs(storeDefinition.computedRef);
 
-let handleOpen = function(path:string) {
-  console.log(`handleOpen---${path}`);
-};
-let handleClose=function(path: string) {
-  console.log(`handleClose---${path}`);
-};
 let isCollapse = ref(false);
 
 let handleCollapse = function() {

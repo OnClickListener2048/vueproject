@@ -16,4 +16,11 @@ export function getFlatMenuList(items: AuthItem[]) {
   return getFlatItems(items);
 }
 
+export function filterMenuList(items: AuthItem[]) {
+  return items.filter((value) => {
+    value.children = filterMenuList(value.children ?? []);
+    return !value.meta?.isHide;
+  });
+}
+
 export default router_path;
