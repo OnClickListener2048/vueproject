@@ -1,6 +1,6 @@
 <template>
   <div class="common-layout">
-    <el-container class="el-container" style="height: 55px">
+    <el-container class="el-container-top">
       <el-header class="el-header">
         <div class="top">
           <img class="logo" src="../../assets/logo.svg" alt="logo" @click="handleCollapse">
@@ -10,10 +10,9 @@
 
     </el-container>
     <el-container>
-      <div v-bind:style="{width:isCollapse?'64px':'200px'}" style="background-color: aqua"
-           class="el-menu-vertical-demo">
-        <el-aside class="el-menu-vertical-demo">
-          <el-scrollbar>
+      <div v-bind:style="{width:isCollapse?'64px':'200px'}" class="bottom-height">
+        <el-aside class="el-menu-vertical-demo" >
+          <el-scrollbar :height="windowHeight">
             <el-menu :collapse="isCollapse"
                      :default-active="activeMenu"
                      unique-opened="unique-opened">
@@ -56,7 +55,7 @@ let isCollapse = ref(false);
 let handleCollapse = function() {
   isCollapse.value = !isCollapse.value;
 };
-
+let windowHeight = window.innerHeight - 60
 
 </script>
 
@@ -73,7 +72,7 @@ let handleCollapse = function() {
 .el-header {
   flex-direction: column;
   justify-content: center;
-  background-color: black;
+  background-color: saddlebrown;
   display: flex;
 
   div {
@@ -90,10 +89,12 @@ let handleCollapse = function() {
     color: white;
   }
 }
-
+.el-container-top{
+  height: 60px;
+}
 
 .el-menu-vertical-demo:not(.el-menu--collapse) {
-  height: calc(100% - 55px);
+  height: calc(100% - 60px);
   width: 200px;
   min-height: 400px;
 }
