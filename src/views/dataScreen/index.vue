@@ -4,10 +4,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "index"
-};
+<script setup name="dataScreen">
+
 </script>
 
 <style scoped>

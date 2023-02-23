@@ -2,7 +2,7 @@ import type { AuthItem } from "@/interface";
 
 let router_path = {
   login: "/login",
-  home: "/home",
+  home: "/layout",
   homeIndex: "/home/index"
 };
 

@@ -23,10 +23,11 @@ export const auth_list = defineStore(
       for (const flatItem of flatItems) {
         let path = `../views${flatItem.component}.vue`;
         flatItem.component = glob[path];
+        console.log(flatItem.component);
         if (flatItem.meta?.isFull) {
           router.addRoute(flatItem as any);
         } else {
-          router.addRoute("home", flatItem as any);
+          router.addRoute("layout", flatItem as any);
         }
         authList.defaultOpen = "1";
       }

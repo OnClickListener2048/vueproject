@@ -4,10 +4,8 @@
 </div>
 </template>
 
-<script>
-export default {
-  name: "index"
-};
+<script setup>
+console.log("123123213");
 </script>
 
 <style scoped>

@@ -36,12 +36,13 @@ let props = withDefaults(
   }
 );
 let router = useRouter();
-const handleItemClick = (item: AuthItem) => {
+const handleItemClick =async (item: AuthItem) => {
   console.log(item);
   if (item.meta?.isLink) {
 
   }
-  router.push(item.path ?? router_path.homeIndex);
+  let promise =await router.push(item.path ?? router_path.homeIndex);
+  console.log(promise);
 };
 
 </script>
