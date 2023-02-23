@@ -14,24 +14,19 @@ export const auth_list = defineStore(
 
     async function getMenuList() {
       let { data } = await http.get<AuthItem[]>("/menu/list");
-      console.log(data);
       authList.list = data ?? [];
 
       let flatMenuList = getFlatMenuList(authList.list);
-      console.log(flatMenuList);
 
       let flatItems = filterMenuList(flatMenuList);
       console.log(flatItems);
       for (const flatItem of flatItems) {
-        let route = {
-          path: flatItem.path ?? "",
-          component: glob[`../views${flatItem.component}.vue`]
-        };
-        flatItem.component = glob[`../views${flatItem.component}.vue`];
+        let path = `../views${flatItem.component}.vue`;
+        flatItem.component = glob[path];
         if (flatItem.meta?.isFull) {
-          let addRoute = router.addRoute(flatItem as any);
+          router.addRoute(flatItem as any);
         } else {
-          let addRoute1 = router.addRoute("home", flatItem as any);
+          router.addRoute("home", flatItem as any);
         }
         authList.defaultOpen = "1";
       }
