@@ -6,11 +6,13 @@
 
 <script setup name="useProTable">
 console.log("useProTable");
+
 </script>
 
 <style scoped lang="scss">
 div{
-  background-color: #181818;
+  width: 100%;
+  height: 100%;
 }
 
 </style>

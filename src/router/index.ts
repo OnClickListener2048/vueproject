@@ -19,7 +19,7 @@ const router = createRouter({
       path: "/layout",
       name: "layout",
       component: () => import("../views/layout/HomeView.vue"),
-      redirect:router_path.homeIndex,
+      // redirect:router_path.homeIndex,
       children: []
     },
     {

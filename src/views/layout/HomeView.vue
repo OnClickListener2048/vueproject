@@ -2,17 +2,17 @@
   <div class="common-layout">
     <el-container class="el-container-top">
       <el-header class="el-header">
-        <div class="top">
-          <img class="logo" src="../../assets/logo.svg" alt="logo" @click="handleCollapse">
+        <div class="top" >
+          <img class="logo" id="toolbar-logo" src="../../assets/logo.svg" alt="logo" @click="handleCollapse">
           <span>vue project</span>
         </div>
       </el-header>
 
     </el-container>
     <el-container>
-      <div v-bind:style="{width:isCollapse?'64px':'200px'}" class="bottom-height">
-        <el-aside class="el-menu-vertical-demo" >
-          <el-scrollbar :height="windowHeight" style="background-color: blanchedalmond">
+      <div  class="bottom-height">
+        <el-aside class="el-menu-vertical-demo" v-bind:style="{width:isCollapse?'64px':'200px'}">
+          <el-scrollbar :height="windowHeight">
             <el-menu :collapse="isCollapse"
                      :default-active="activeMenu"
                      unique-opened="unique-opened">
@@ -21,7 +21,7 @@
           </el-scrollbar>
         </el-aside>
       </div>
-      <el-container>
+      <el-container class="main-render">
         <router-view v-slot="{ Component, route }">
           <transition appear name="fade-transform" mode="out-in">
             <component :is="Component" :key="route.path" />
