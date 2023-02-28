@@ -65,6 +65,7 @@ let windowHeight = window.innerHeight - 60
 <style lang="scss">
 
 
+
 .el-footer {
   display: flex;
   align-items: center;
@@ -80,6 +81,7 @@ let windowHeight = window.innerHeight - 60
   flex-direction: column;
   justify-content: center;
   background-color: saddlebrown;
+
   display: flex;
 
   div {
