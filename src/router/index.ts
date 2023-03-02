@@ -19,7 +19,7 @@ const router = createRouter({
       path: "/layout",
       name: "layout",
       component: () => import("../views/layout/HomeView.vue"),
-      // redirect:router_path.homeIndex,
+      redirect:router_path.homeIndex,
       children: []
     },
     {
@@ -38,26 +38,30 @@ const router = createRouter({
   ]
 });
 
-router.beforeEach(async (to, from) => {
-  console.log(to);
-  console.log(router.getRoutes());
+router.beforeEach(async (to, from, next) => {
   const globalState = GlobalConfig();
-  if (!globalState.token && to.name != "login") {
-    console.log(router_path.login);
-    return router_path.login;
+
+
+  if (to.path === router_path.login) {
+    if (globalState.token) return from.fullPath;
+    return next();
+  }
+
+  if (!globalState.token) {
+    return next({ path: router_path.login, replace: true });
   }
 
 
   let authList = auth_list();
   if (authList.computedRef.list.length == 0) {
     await authList.getMenuList();
-    await router.push(to)
-    return false;
+    console.log(router.getRoutes());
+    return next({ ...to, replace: true });
   }
 
   // ...
   // 返回 false 以取消导航
-  return true;
+  next();
 });
 
 router.onError((error, to, from) => {
