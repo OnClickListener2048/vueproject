@@ -55,7 +55,6 @@ router.beforeEach(async (to, from, next) => {
   let authList = auth_list();
   if (authList.computedRef.list.length == 0) {
     await authList.getMenuList();
-    console.log(router.getRoutes());
     return next({ ...to, replace: true });
   }
 
