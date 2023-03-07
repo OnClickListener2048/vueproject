@@ -75,7 +75,7 @@ let selectItem = function(item: SelectDataProps, option: OptionsProps) {
     if (indexOf === -1) {
       result.value[item.key] = [option.value];
     } else {
-      delete result.value[item.key][indexOf];
+      result.value[item.key].splice(indexOf,1)
     }
 
   }
