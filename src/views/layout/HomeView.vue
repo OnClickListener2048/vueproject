@@ -9,7 +9,7 @@
       </el-header>
 
     </el-container>
-    <el-container class="bottom_container">
+    <el-container >
       <div  class="bottom-height">
         <el-aside class="el-menu-vertical-demo" v-bind:style="{width:isCollapse?'64px':'200px'}">
           <el-scrollbar :height="windowHeight">
@@ -21,8 +21,8 @@
           </el-scrollbar>
         </el-aside>
       </div>
-      <el-container class="main-render">
-        <router-view class="router" v-slot="{ Component, route }">
+      <el-container >
+        <router-view  v-slot="{ Component, route }">
           <transition appear name="fade-transform" mode="out-in">
             <component :is="Component" :key="route.path" />
           </transition>

@@ -1,7 +1,9 @@
 <template>
-  <SelectionFilter class="filter"  :data="filterData" @change="useChange"></SelectionFilter>
+ <div class="filter" >
+   <SelectionFilter  :data="filterData" @change="useChange"></SelectionFilter>
 
-  <div>{{change}}</div>
+   <div>{{change}}</div>
+ </div>
 </template>
 
 <script setup lang="ts" name="selectFilter">
@@ -79,7 +81,6 @@ let change = ref("")
 
 let useChange = function(value:string) {
   change.value = value
-
 }
 </script>
 

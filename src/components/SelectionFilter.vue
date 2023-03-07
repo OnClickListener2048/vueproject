@@ -64,8 +64,11 @@ let selectItem = function(item: SelectDataProps, option: OptionsProps) {
     if (indexOf == -1) {
       resultElement.push(option.value);
     } else {
-      delete resultElement[indexOf];
+      resultElement.splice(indexOf,1)
       // resultElement.push(option.value);
+    }
+    if (resultElement.length) {
+      console.log(resultElement.length);
     }
   } else {
     let indexOf = result.value[item.key].indexOf(option.value);
@@ -76,7 +79,7 @@ let selectItem = function(item: SelectDataProps, option: OptionsProps) {
     }
 
   }
-  emits("change",result.value);
+   emits("change",result.value);
   console.log(result);
   console.log(result.value[item.key].indexOf(option.value) !== -1);
 };
