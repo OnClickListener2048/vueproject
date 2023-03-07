@@ -9,7 +9,7 @@
       </el-header>
 
     </el-container>
-    <el-container>
+    <el-container class="bottom_container">
       <div  class="bottom-height">
         <el-aside class="el-menu-vertical-demo" v-bind:style="{width:isCollapse?'64px':'200px'}">
           <el-scrollbar :height="windowHeight">
@@ -22,7 +22,7 @@
         </el-aside>
       </div>
       <el-container class="main-render">
-        <router-view v-slot="{ Component, route }">
+        <router-view class="router" v-slot="{ Component, route }">
           <transition appear name="fade-transform" mode="out-in">
             <component :is="Component" :key="route.path" />
           </transition>
@@ -62,9 +62,7 @@ let windowHeight = window.innerHeight - 60
 </script>
 
 
-<style lang="scss">
-
-
+<style lang="scss" scoped>
 
 .el-footer {
   display: flex;
@@ -75,6 +73,10 @@ let windowHeight = window.innerHeight - 60
 
 .el-main {
   background-color: aqua;
+}
+
+.router {
+  height: 100%;
 }
 
 .el-header {

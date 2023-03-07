@@ -1,9 +1,15 @@
 <template>
-  <SelectionFilter :data="filterData"></SelectionFilter>
+  <SelectionFilter class="filter"  :data="filterData" @change="useChange"></SelectionFilter>
+
+  <div>{{change}}</div>
 </template>
 
 <script setup lang="ts" name="selectFilter">
 import SelectionFilter from "@/components/SelectionFilter.vue";
+import { ref } from "vue";
+
+
+
 const filterData = [
   {
     title: "物流状态(单)",
@@ -69,8 +75,16 @@ const filterData = [
   }
 ];
 
+let change = ref("")
+
+let useChange = function(value:string) {
+  change.value = value
+
+}
 </script>
 
 <style scoped>
-
+  .filter{
+    height: 100%;
+  }
 </style>
